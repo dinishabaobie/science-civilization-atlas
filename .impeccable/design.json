@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-26T14:56:00+08:00",
+  "title": "Design System: 科学、技术与文明",
+  "extensions": {
+    "colorMeta": {
+      "vermilion-signal": {
+        "role": "primary",
+        "displayName": "朱红信号",
+        "canonical": "#e45d43",
+        "tonalRamp": ["#3b1711", "#642419", "#8d3223", "#b8422e", "#e45d43", "#ec846f", "#f3ab9d", "#f9d7cf"]
+      },
+      "graphite-room": {
+        "role": "neutral",
+        "displayName": "石墨暗室",
+        "canonical": "#10181c",
+        "tonalRamp": ["#080c0e", "#10181c", "#223036", "#3c4a4f", "#617075", "#8f9a9d", "#c3c9c8", "#eef0eb"]
+      },
+      "smoked-film": {
+        "role": "neutral",
+        "displayName": "烟蓝胶片",
+        "canonical": "#131e23",
+        "tonalRamp": ["#090e10", "#131e23", "#26353b", "#405157", "#65767a", "#93a0a1", "#c6ccca", "#f0f1ec"]
+      },
+      "projected-paper": {
+        "role": "neutral",
+        "displayName": "投影纸",
+        "canonical": "#eee9dc",
+        "tonalRamp": ["#29271f", "#4b473a", "#6d6756", "#938b76", "#b8b09a", "#d7d0bd", "#eee9dc", "#fbf8ef"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "档案展示标题",
+        "purpose": "思想框架与主要章节的大尺度中文标题。"
+      },
+      "body": {
+        "displayName": "中文阅读正文",
+        "purpose": "界面正文与连续解释。"
+      },
+      "archival-label": {
+        "displayName": "档案编号",
+        "purpose": "日期、时代代码、轨道编号和英文微标签。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "projection",
+        "value": "0 22px 70px rgba(0,0,0,.32), 0 0 38px rgba(247,238,213,.08)",
+        "purpose": "只用于桌面投影读稿。"
+      },
+      {
+        "name": "mobile-sheet",
+        "value": "0 -22px 70px rgba(0,0,0,.34)",
+        "purpose": "只用于移动节点详情层。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-fast",
+        "value": "150ms ease",
+        "purpose": "筛选、悬停和活动状态的短反馈。"
+      },
+      {
+        "name": "focus-transfer",
+        "value": "smooth scroll, disabled by prefers-reduced-motion",
+        "purpose": "让桌面胶片跟随选中节点。"
+      }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "680px" },
+      { "name": "single-flow", "value": "960px" },
+      { "name": "compact-desktop", "value": "1040px" },
+      { "name": "wide-desktop", "value": "1220px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Archive Filter",
+      "kind": "button",
+      "refersTo": "filter-control",
+      "description": "时间轴筛选的克制档案控件。",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"true\">全部轨道</button>",
+      "css": ".ds-filter{min-height:44px;padding:0 12px;border:1px solid rgba(231,235,229,.28);border-radius:7px;background:#1a272d;color:#e9e6dc;font:600 12px Geist,system-ui,sans-serif;cursor:pointer;transition:background 150ms ease,border-color 150ms ease}.ds-filter:hover{background:#223139}.ds-filter:focus-visible{outline:2px solid #ff9078;outline-offset:3px}.ds-filter[aria-pressed=\"true\"]{box-shadow:inset 0 -2px 0 #e45d43}"
+    },
+    {
+      "name": "Archive Search",
+      "kind": "input",
+      "refersTo": "filter-control",
+      "description": "检索节点和人物的有标签搜索框。",
+      "html": "<label class=\"ds-search\"><span>检索节点或人物</span><input type=\"search\" placeholder=\"牛顿、蒸汽、治理…\"></label>",
+      "css": ".ds-search{display:grid;gap:7px;color:#9aa6a8;font:12px Geist,system-ui,sans-serif}.ds-search input{min-height:44px;padding:0 12px;border:1px solid rgba(231,235,229,.28);border-radius:7px;background:#172126;color:#e9e6dc;font:16px Geist,system-ui,sans-serif}.ds-search input:focus-visible{outline:2px solid #ff9078;outline-offset:2px;border-color:#e45d43}"
+    },
+    {
+      "name": "Lane Chip",
+      "kind": "chip",
+      "refersTo": "filter-control",
+      "description": "同时用形状和文字识别轨道。",
+      "html": "<button class=\"ds-lane\" aria-pressed=\"false\"><span aria-hidden=\"true\">知</span>科学轨</button>",
+      "css": ".ds-lane{display:inline-flex;min-height:44px;align-items:center;gap:7px;padding:0 10px;border:1px solid rgba(231,235,229,.2);border-radius:7px;background:#131e23;color:#9aa6a8;font:12px Geist,system-ui,sans-serif;cursor:pointer}.ds-lane span{display:grid;width:20px;height:20px;place-items:center;border:1px solid currentColor;border-radius:50%;font:8px 'Geist Mono',monospace}.ds-lane:hover,.ds-lane[aria-pressed=\"true\"]{color:#e9e6dc;border-color:rgba(231,235,229,.36)}.ds-lane:focus-visible{outline:2px solid #ff9078;outline-offset:3px}"
+    },
+    {
+      "name": "Timeline Event",
+      "kind": "custom",
+      "refersTo": "selected-event",
+      "description": "日期、节点和人物摘要共同构成的活动时间轴行。",
+      "html": "<button class=\"ds-event\" aria-pressed=\"true\"><small>T01 / 史前早期</small><strong>石器与火把能力移出身体</strong><span>人物 早期人属的多个人群与石器制作者</span></button>",
+      "css": ".ds-event{display:grid;width:100%;gap:6px;padding:12px 18px 12px 14px;border:0;border-left:2px solid #e45d43;background:linear-gradient(90deg,rgba(228,93,67,.15),transparent);color:#e9e6dc;text-align:left;cursor:pointer}.ds-event small{color:#ff795d;font:10px 'Geist Mono',monospace}.ds-event strong{font:600 15px Geist,system-ui,sans-serif}.ds-event span{color:#9aa6a8;font:12px Geist,system-ui,sans-serif}.ds-event:hover{background:linear-gradient(90deg,rgba(228,93,67,.22),transparent)}.ds-event:focus-visible{outline:2px solid #ff9078;outline-offset:3px}"
+    },
+    {
+      "name": "Projected Reading Pane",
+      "kind": "custom",
+      "refersTo": "projected-reading-pane",
+      "description": "事件转折、人物、条件和张力的唯一长文阅读面。",
+      "html": "<article class=\"ds-reading\"><small>T01 / 史前早期</small><h2>石器与火把能力移出身体</h2><h3>01 / 转折</h3><p>天然石块只能偶然利用，打制石器则把技能变成可重复能力。</p></article>",
+      "css": ".ds-reading{max-width:520px;padding:42px 52px 70px;background:#eee9dc;color:#172021;box-shadow:0 22px 70px rgba(0,0,0,.32)}.ds-reading small,.ds-reading h3{color:#c9442d;font:700 11px 'Geist Mono',monospace;letter-spacing:.08em}.ds-reading h2{max-width:13ch;margin:20px 0 36px;font:600 40px/1.16 Geist,system-ui,sans-serif;letter-spacing:-.045em}.ds-reading p{font:16px/1.85 'Songti SC',STSong,Georgia,serif}.ds-reading:focus-within{outline:2px solid #c9442d;outline-offset:-2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Scientific Microfilm Reading Room",
+    "overview": "界面是一台用于近距离阅读的科学史仪器，而不是营销首页。暗色房间承载索引和时间膜，暖白投影纸承载长文，朱红信号只负责当前选择、关键编号和焦点转移。桌面三栏是主构图，移动端只是可靠的单流退化。",
+    "keyCharacteristics": [
+      "九时代索引、三轨时间膜、投影读稿组成稳定的桌面阅读仪器。",
+      "科学、技术、文明以圆、方、菱形同时区分，颜色不是唯一信号。",
+      "人物与群体绑定贡献、条件和争议，不形成名人墙。",
+      "颗粒只出现在胶片层，长文区域保持清晰。"
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "朱红是唯一强调色，不为装饰增加第二个高饱和色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Archive Label Rule",
+        "body": "等宽体不承担连续中文正文。",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Room Rule",
+        "body": "暗室中的静态容器保持平坦，层级主要由明度、线条和空间建立。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 让历史位置、选中状态、网址和读稿同步。",
+      "Do 在节点列表直接显示人物或群体摘要。",
+      "Do 保持桌面三栏为主体验，并在 1440×900 检查九时代总览。",
+      "Do 用真实语义控件、键盘焦点和减少动态效果偏好。"
+    ],
+    "donts": [
+      "Don't 把页面改成 Hero 加等宽卡片的通用落地页。",
+      "Don't 用未经授权的历史人物肖像或虚构引文。",
+      "Don't 用单一英雄替代共同体、工程化和制度条件。",
+      "Don't 把颗粒、阴影、胶囊和朱红扩散到所有区域。"
+    ]
+  }
+}
