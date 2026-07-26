@@ -168,6 +168,7 @@ export function TimelineAtlas() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const readingPaneRef = useRef<HTMLElement>(null);
   const mobileSheetRef = useRef<HTMLDivElement>(null);
+  const eventScrollRef = useRef<HTMLDivElement>(null);
   const eventRefs = useRef<Record<string, HTMLLIElement | null>>({});
 
   const selectedEvent =
@@ -232,10 +233,23 @@ export function TimelineAtlas() {
         const reduceMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        eventRefs.current[selectedEventId]?.scrollIntoView({
-          block: "center",
-          behavior: reduceMotion ? "auto" : "smooth",
-        });
+        const eventScroll = eventScrollRef.current;
+        const selectedEventNode = eventRefs.current[selectedEventId];
+
+        if (eventScroll && selectedEventNode) {
+          const scrollRect = eventScroll.getBoundingClientRect();
+          const eventRect = selectedEventNode.getBoundingClientRect();
+          const centeredTop =
+            eventScroll.scrollTop +
+            eventRect.top -
+            scrollRect.top -
+            (eventScroll.clientHeight - eventRect.height) / 2;
+
+          eventScroll.scrollTo({
+            top: Math.max(0, centeredTop),
+            behavior: reduceMotion ? "auto" : "smooth",
+          });
+        }
       }
     });
     return () => window.cancelAnimationFrame(frame);
@@ -445,7 +459,7 @@ export function TimelineAtlas() {
           <span>节点 / EVENT</span>
         </div>
 
-        <div className="event-scroll" tabIndex={-1}>
+        <div className="event-scroll" tabIndex={-1} ref={eventScrollRef}>
           {filteredEvents.length > 0 ? (
             <ol className="event-list">
               {filteredEvents.map((event) => {
