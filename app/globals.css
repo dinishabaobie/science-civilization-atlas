@@ -466,7 +466,7 @@ ul {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background-image: url("/microfilm-grain.webp");
+  background-image: var(--microfilm-grain-image);
   background-position: center;
   background-size: 720px auto;
   content: "";

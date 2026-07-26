@@ -41,6 +41,10 @@ const laneMeta: Record<
 
 const allLaneIds = Object.keys(laneMeta) as TimelineLane[];
 
+function eventHasLane(event: TimelineEvent, lane: TimelineLane) {
+  return event.lanes.includes(lane);
+}
+
 function displayText(value: string) {
   return value.replace(/[\u2013\u2014]/g, "-");
 }
@@ -180,7 +184,7 @@ export function TimelineAtlas() {
 
     return TIMELINE_EVENTS.filter((event) => {
       if (eraFilter !== "all" && event.eraId !== eraFilter) return false;
-      if (laneFilter !== "all" && !event.lanes.includes(laneFilter)) {
+      if (laneFilter !== "all" && !eventHasLane(event, laneFilter)) {
         return false;
       }
       if (!normalizedQuery) return true;
@@ -500,7 +504,7 @@ export function TimelineAtlas() {
                         <span
                           key={lane}
                           className={`rail rail-${lane} ${
-                            event.lanes.includes(lane) ? "is-on" : ""
+                            eventHasLane(event, lane) ? "is-on" : ""
                           }`}
                         >
                           <i>{laneMeta[lane].short}</i>

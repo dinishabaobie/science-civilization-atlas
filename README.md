@@ -2,6 +2,10 @@
 
 一份以时间轴为骨架的个人读书笔记网站。内容融合四本科学类读书笔记，沿科学、技术、文明三条轨道整理九个时代、52 个节点，以及人物、条件、影响和治理张力。
 
+## 在线访问
+
+- [GitHub Pages 正式站点](https://dinishabaobie.github.io/science-civilization-atlas/)
+
 ## 本地运行
 
 需要 Node.js `>=22.13.0`。
@@ -16,9 +20,11 @@ npm run dev
 ```bash
 npm run lint
 npm test
+npm run build:pages
 ```
 
 `npm test` 会完成生产构建，并检查时间轴节点、思想框架与设计契约是否进入服务端输出。
+`npm run build:pages` 会在 `out/` 目录生成供 GitHub Pages 使用的静态版本。
 
 ## 内容边界
 

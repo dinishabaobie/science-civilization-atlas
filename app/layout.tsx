@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import type { CSSProperties } from "react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+const publicBasePath =
+  process.env.GITHUB_PAGES === "true" ? "/science-civilization-atlas" : "";
+
+const rootStyle = {
+  "--microfilm-grain-image": `url("${publicBasePath}/microfilm-grain.webp")`,
+} as CSSProperties;
 
 export const metadata: Metadata = {
   title: {
@@ -39,7 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      style={rootStyle}
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         suppressHydrationWarning
