@@ -539,12 +539,10 @@ export function TimelineAtlas() {
         aria-labelledby="event-title"
         ref={readingPaneRef}
       >
-        <div className="projection-mark projection-mark-top" aria-hidden />
         <DetailPanel
           event={selectedEvent}
           onSelectRelated={(id) => selectEvent(id)}
         />
-        <div className="projection-mark projection-mark-bottom" aria-hidden />
       </aside>
 
       <dialog

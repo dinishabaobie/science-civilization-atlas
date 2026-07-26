@@ -944,26 +944,6 @@ ul {
   padding: 42px clamp(27px, 3vw, 52px) 70px;
 }
 
-.projection-mark {
-  position: absolute;
-  right: 18px;
-  left: 18px;
-  height: 7px;
-  border-right: 1px solid rgba(23, 32, 33, 0.25);
-  border-left: 1px solid rgba(23, 32, 33, 0.25);
-  pointer-events: none;
-}
-
-.projection-mark-top {
-  top: 16px;
-  border-top: 1px solid rgba(23, 32, 33, 0.25);
-}
-
-.projection-mark-bottom {
-  bottom: 16px;
-  border-bottom: 1px solid rgba(23, 32, 33, 0.25);
-}
-
 .reading-pane-kicker,
 .reading-pane-era,
 .detail-index {
