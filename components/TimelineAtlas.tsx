@@ -14,6 +14,10 @@ import {
   type TimelineEvent,
   type TimelineLane,
 } from "@/lib/timeline-data";
+import {
+  getEventReadingProfile,
+  type DetailSectionKey,
+} from "@/lib/timeline-lenses";
 
 type LaneFilter = TimelineLane | "all";
 type ThemeName = "light" | "dark";
@@ -49,6 +53,10 @@ function displayText(value: string) {
   return value.replace(/[\u2013\u2014]/g, "-");
 }
 
+function twoDigits(value: number) {
+  return String(value).padStart(2, "0");
+}
+
 function peoplePreview(value: string) {
   const firstStatement = displayText(value).split(/[。；]/)[0]?.trim() ?? "";
   if (firstStatement.length <= 58) return firstStatement;
@@ -66,10 +74,17 @@ function DetailPanel({
 }) {
   const era = TIMELINE_ERAS.find((item) => item.id === event.eraId);
   const detailId = `${mobile ? "mobile" : "desktop"}-${event.id}`;
+  const readingProfile = getEventReadingProfile(event);
   const relatedIds = [
     ...(event.parentId ? [event.parentId] : []),
     ...(event.childIds ?? []),
   ];
+  const sectionContent: Record<DetailSectionKey, string> = {
+    turningPoint: event.turningPoint,
+    people: event.people,
+    conditionsAndImpact: event.conditionsAndImpact,
+    tension: event.tension,
+  };
 
   return (
     <div className="reading-pane-content">
@@ -99,38 +114,57 @@ function DetailPanel({
         ))}
       </div>
 
-      <section className="detail-lead" aria-labelledby={`${detailId}-turn-title`}>
-        <p className="detail-index">01 / 转折</p>
-        <h3 id={`${detailId}-turn-title`}>发生了什么变化</h3>
-        <p>{displayText(event.turningPoint)}</p>
-      </section>
-
-      <section
-        className="detail-section people-section"
-        aria-labelledby={`${detailId}-people-title`}
+      <aside
+        className={`detail-lens detail-lens--${readingProfile.id}`}
+        aria-label="当前节点的阅读镜头"
       >
-        <p className="detail-index">02 / 人物与群体</p>
-        <h3 id={`${detailId}-people-title`}>谁推动了这次变化</h3>
-        <p>{displayText(event.people)}</p>
-      </section>
+        <header>
+          <span>阅读镜头</span>
+          <strong>{readingProfile.label}</strong>
+        </header>
+        <p>{readingProfile.description}</p>
+        <dl>
+          <div>
+            <dt>两种燃料</dt>
+            <dd>{readingProfile.fuels.join(" + ")}</dd>
+          </div>
+          <div>
+            <dt>当前闸门</dt>
+            <dd>{readingProfile.gates.join(" · ")}</dd>
+          </div>
+          <div>
+            <dt>历史规律</dt>
+            <dd>{readingProfile.laws.join(" · ")}</dd>
+          </div>
+        </dl>
+        <p className="detail-lens__question">
+          <span>本节点追问</span>
+          {readingProfile.question}
+        </p>
+      </aside>
 
-      <section
-        className="detail-section"
-        aria-labelledby={`${detailId}-impact-title`}
-      >
-        <p className="detail-index">03 / 条件与影响</p>
-        <h3 id={`${detailId}-impact-title`}>它依赖什么，又改变了什么</h3>
-        <p>{displayText(event.conditionsAndImpact)}</p>
-      </section>
-
-      <section
-        className="detail-section tension-section"
-        aria-labelledby={`${detailId}-tension-title`}
-      >
-        <p className="detail-index">04 / 张力</p>
-        <h3 id={`${detailId}-tension-title`}>这段历史不能被简化成什么</h3>
-        <p>{displayText(event.tension)}</p>
-      </section>
+      {readingProfile.sections.map((section, index) => {
+        const sectionId = `${detailId}-${section.key}-title`;
+        return (
+          <section
+            key={section.key}
+            className={[
+              "detail-section",
+              index === 0 ? "detail-lead" : "",
+              `detail-section--${section.tone}`,
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            aria-labelledby={sectionId}
+          >
+            <p className="detail-index">
+              {twoDigits(index + 1)} / {section.label}
+            </p>
+            <h3 id={sectionId}>{section.title}</h3>
+            <p>{displayText(sectionContent[section.key])}</p>
+          </section>
+        );
+      })}
 
       <div className="keyword-list" aria-label="关键词">
         {event.keywords.map((keyword) => (
@@ -368,7 +402,7 @@ export function TimelineAtlas() {
             <span className="era-code">ALL</span>
             <span className="era-name">
               <strong>完整历程</strong>
-              <small>九个时代 · 52个节点</small>
+              <small>九个时代 · {TIMELINE_EVENTS.length}个节点</small>
             </span>
           </button>
           {TIMELINE_ERAS.map((era) => {

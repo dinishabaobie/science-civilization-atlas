@@ -33,10 +33,14 @@ test("server-renders the science reading atlas", async () => {
   assert.match(html, /科学、技术与文明/);
   assert.match(html, /科学史互动时间轴/);
   assert.match(html, /三条轨道上的能力扩张/);
-  assert.match(html, /重要人物|人物与群体/);
+  assert.match(html, /阅读镜头/);
+  assert.match(html, /七道闸门/);
+  assert.match(html, /八次关键耦合/);
+  assert.match(html, /评价一项新技术的十六问/);
+  assert.match(html, /生成式人工智能使语言成为通用接口/);
   assert.match(html, /来源与解释边界/);
   assert.match(html, /THESIS[\s\S]*OWN-WORLD[\s\S]*STORY/);
-  assert.equal((html.match(/class="event-card"/g) ?? []).length, 52);
+  assert.equal((html.match(/class="event-card"/g) ?? []).length, 53);
 });
 
 test("ships the full C composition without starter residue", async () => {
@@ -53,6 +57,7 @@ test("ships the full C composition without starter residue", async () => {
   assert.match(layout, /lang="zh-CN"/);
   assert.match(timeline, /"id": "T45-A"/);
   assert.match(timeline, /"id": "T45-B"/);
+  assert.match(timeline, /"id": "T47-A"/);
   assert.match(timeline, /readonly people: string/);
   assert.match(insights, /futureTechnologyMaturity/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

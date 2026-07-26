@@ -5,7 +5,7 @@ import { TimelineAtlas } from "@/components/TimelineAtlas";
 export const metadata: Metadata = {
   title: "个人读书笔记时间轴",
   description:
-    "融合四本科学类读书笔记的互动时间轴，以科学、技术、文明三条轨道追踪知识、能力与治理。",
+    "融合四本科学类读书笔记与结构重排母稿的互动阅读站，以时间轴、七道闸门、八次耦合和技术十六问追踪知识、能力与治理。",
 };
 
 const directionContract = `
@@ -58,8 +58,8 @@ export default function Home() {
       </main>
 
       <footer className="site-footer">
-        <p>四篇读书笔记融合稿的互动阅读版本</p>
-        <p>时间轴是骨架，人物、制度与代价共同构成历史。</p>
+        <p>四篇原始读书笔记与结构重排母稿的互动阅读版本</p>
+        <p>时间轴是骨架，闸门、人物、制度与代价共同构成历史。</p>
       </footer>
     </>
   );

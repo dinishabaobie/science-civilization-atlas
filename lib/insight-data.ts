@@ -341,7 +341,7 @@ export const sourceBoundaries = [
     id: "reading-notes-not-verification",
     title: "这是个人读书笔记母稿",
     description:
-      "文本融合四篇既有笔记，没有逐条核验原书引文、版本差异与最新研究。",
+      "网页融合四篇既有笔记与结构重排版母稿，没有逐条核验原书引文、版本差异与最新研究。",
     implication: "用于学术写作或现实决策时，应回到原书与更新的一手资料。",
   },
 ] as const satisfies readonly SourceBoundary[];
