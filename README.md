@@ -5,6 +5,7 @@
 ## 在线访问
 
 - [GitHub Pages 正式站点](https://dinishabaobie.github.io/science-civilization-atlas/)
+- [Cloudflare Pages 正式站点](https://science-civilization-atlas.pages.dev/)
 
 ## 本地运行
 
@@ -21,10 +22,15 @@ npm run dev
 npm run lint
 npm test
 npm run build:pages
+npm run build:cloudflare-pages
 ```
 
 `npm test` 会完成生产构建，并检查时间轴节点、思想框架与设计契约是否进入服务端输出。
 `npm run build:pages` 会在 `out/` 目录生成供 GitHub Pages 使用的静态版本。
+`npm run build:cloudflare-pages` 同样生成静态版本，但资源路径以
+`pages.dev` 根目录为基准。Cloudflare Pages 的构建命令使用 `npm run build`
+或 `npm run build:cloudflare-pages` 均可，发布目录固定为 `out`；
+`wrangler.jsonc` 已将该目录写入项目配置。
 
 ## 内容边界
 

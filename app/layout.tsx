@@ -15,8 +15,13 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const isCloudflarePages =
+  process.env.CF_PAGES === "1" ||
+  process.env.CLOUDFLARE_PAGES === "true";
 const publicBasePath =
-  process.env.GITHUB_PAGES === "true" ? "/science-civilization-atlas" : "";
+  process.env.GITHUB_PAGES === "true" && !isCloudflarePages
+    ? "/science-civilization-atlas"
+    : "";
 
 const rootStyle = {
   "--microfilm-grain-image": `url("${publicBasePath}/microfilm-grain.webp")`,
