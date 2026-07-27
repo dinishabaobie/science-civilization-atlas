@@ -30,6 +30,7 @@ test("server-renders the science reading atlas", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="zh-CN"/);
+  assert.match(html, /data-theme="light"/);
   assert.match(html, /科学、技术与文明/);
   assert.match(html, /科学史互动时间轴/);
   assert.match(html, /三条轨道上的能力扩张/);
@@ -55,6 +56,8 @@ test("ships the full C composition without starter residue", async () => {
   assert.match(page, /<TimelineAtlas \/>/);
   assert.match(page, /<ReadingFramework \/>/);
   assert.match(layout, /lang="zh-CN"/);
+  assert.match(layout, /data-theme="light"/);
+  assert.match(layout, /storedTheme === "dark" \? "dark" : "light"/);
   assert.match(timeline, /"id": "T45-A"/);
   assert.match(timeline, /"id": "T45-B"/);
   assert.match(timeline, /"id": "T47-A"/);

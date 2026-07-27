@@ -27,6 +27,16 @@ const rootStyle = {
   "--microfilm-grain-image": `url("${publicBasePath}/microfilm-grain.webp")`,
 } as CSSProperties;
 
+const themeBootScript = `
+try {
+  const storedTheme = window.localStorage.getItem("science-atlas-theme");
+  document.documentElement.dataset.theme =
+    storedTheme === "dark" ? "dark" : "light";
+} catch {
+  document.documentElement.dataset.theme = "light";
+}
+`;
+
 export const metadata: Metadata = {
   title: {
     default: "科学、技术与文明",
@@ -54,9 +64,13 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
+      data-theme="light"
       style={rootStyle}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         suppressHydrationWarning

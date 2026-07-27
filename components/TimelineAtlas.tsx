@@ -202,7 +202,7 @@ export function TimelineAtlas() {
   const [eraFilter, setEraFilter] = useState<TimelineEraId | "all">("all");
   const [laneFilter, setLaneFilter] = useState<LaneFilter>("all");
   const [query, setQuery] = useState("");
-  const [theme, setTheme] = useState<ThemeName>("dark");
+  const [theme, setTheme] = useState<ThemeName>("light");
   const dialogRef = useRef<HTMLDialogElement>(null);
   const readingPaneRef = useRef<HTMLElement>(null);
   const mobileSheetRef = useRef<HTMLDivElement>(null);
@@ -243,7 +243,7 @@ export function TimelineAtlas() {
   useEffect(() => {
     const stored = window.localStorage.getItem("science-atlas-theme");
     const nextTheme: ThemeName =
-      stored === "light" || stored === "dark" ? stored : "dark";
+      stored === "light" || stored === "dark" ? stored : "light";
     const frame = window.requestAnimationFrame(() => {
       document.documentElement.dataset.theme = nextTheme;
       setTheme(nextTheme);
